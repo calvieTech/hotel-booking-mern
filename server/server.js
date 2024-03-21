@@ -33,15 +33,15 @@ app.get('/', (req, res) => {
   res.send('API Running');
 });
 
-// if (process.env.NODE_ENV === 'production') {
-//   const dirname = path.resolve();
-//   app.use(express.static(path.join(dirname, 'client/dist')));
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(dirname, 'client', 'dist', 'index.html'));
-//   });
-// } else {
-//   app.get('/', (req, res) => res.send('API running'));
-// }
+if (process.env.NODE_ENV === 'production') {
+  const dirname = path.resolve();
+  app.use(express.static(path.join(dirname, 'client/dist')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(dirname, 'client', 'dist', 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => res.send('API running'));
+}
 
 // app.get('/api/csrf/restore', (req, res) => {
 //   const csrfToken = req.csrfToken();
