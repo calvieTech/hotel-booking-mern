@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { setCredentials } from '../slices/authSlice';
 import { useLoginMutation } from '../slices/usersApiSlice';
+import { RootState } from '../store';
 
 const Login = () => {
   const [login] = useLoginMutation();
@@ -14,7 +15,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { userCredentials } = useSelector((state) => state?.auth);
+  const { userCredentials } = useSelector((state: RootState) => state?.auth);
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
@@ -24,9 +25,9 @@ const Login = () => {
       dispatch(setCredentials({ ...res }));
       toast.success('Logged in successfully!');
       navigate('/', { replace: true });
-    } catch (err: unknown) {
+    } catch (err: any) {
       toast.error('Login attempt has failed!');
-      throw new Error(err.message);
+      throw new Error(err);
     }
   };
 

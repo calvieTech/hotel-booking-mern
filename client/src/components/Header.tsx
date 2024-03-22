@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { logout } from '../slices/authSlice.ts';
 import { useLogoutMutation } from '../slices/usersApiSlice';
+import { RootState } from '../store.ts';
 
 const Header = () => {
-  const { userCredentials } = useSelector((state) => state.auth);
+  const { userCredentials } = useSelector((state: RootState) => state?.auth);
   const [logoutAPICall] = useLogoutMutation();
 
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const Header = () => {
       const res = await logoutAPICall(userCredentials).unwrap();
       dispatch(logout({ ...res }));
       toast.success('Successfully logged out!');
-    } catch (err) {
+    } catch (err: any) {
       console.error(err.message);
       toast.error('Could not logout!');
     }
@@ -23,7 +24,7 @@ const Header = () => {
 
   return (
     <section className='bg-blue-800 py-6'>
-      <div className='container mx-auto flex justify-around align-center'>
+      <div className='container mx-auto flex justify-between'>
         <span className='xs:text-2xl text-3xl text-white font-bold tracking-tight'>
           <Link to={'/'}>BookIt.com</Link>
         </span>

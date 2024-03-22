@@ -5,9 +5,10 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import Layout from './layouts/Layout';
 import Login from './pages/Login';
 import RegisterPage from './pages/RegisterPage';
+import { RootState } from './store';
 
 function App() {
-  const authState = useSelector((state) => state?.auth);
+  const authState = useSelector((state: RootState) => state?.auth);
 
   return (
     <BrowserRouter>

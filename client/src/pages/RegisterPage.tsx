@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { setCredentials } from '../slices/authSlice';
 import { useRegisterMutation } from '../slices/usersApiSlice';
+import { RootState } from '../store';
 
 export type RegisterFormData = {
   firstName: string;
@@ -27,7 +28,7 @@ function RegisterPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { userCredentials } = useSelector((state) => state?.auth);
+  const { userCredentials } = useSelector((state: RootState) => state?.auth);
 
   const registerHandler = async (e: FormEvent) => {
     e.preventDefault();
