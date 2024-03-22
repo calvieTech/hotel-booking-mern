@@ -1,19 +1,14 @@
-import { useState } from 'react';
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Router,
-  Routes,
-} from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.min.css';
-import SignOut from './components/SignOut';
 import Layout from './layouts/Layout';
 import Login from './pages/Login';
 import RegisterPage from './pages/RegisterPage';
 
 function App() {
+  const authState = useSelector((state) => state?.auth);
+
   return (
     <BrowserRouter>
       <Routes>

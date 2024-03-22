@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { setCredentials } from '../slices/authSlice';
 import { useLoginMutation } from '../slices/usersApiSlice';
 
 const Login = () => {
-  const [login, { isLoading, error }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +16,7 @@ const Login = () => {
 
   const { userCredentials } = useSelector((state) => state?.auth);
 
-  const submitHandler = async (e: Event) => {
+  const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
@@ -25,7 +24,7 @@ const Login = () => {
       dispatch(setCredentials({ ...res }));
       toast.success('Logged in successfully!');
       navigate('/', { replace: true });
-    } catch (err) {
+    } catch (err: unknown) {
       toast.error('Login attempt has failed!');
       throw new Error(err.message);
     }

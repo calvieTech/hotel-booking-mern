@@ -6,7 +6,7 @@ import { useLogoutMutation } from '../slices/usersApiSlice';
 
 const Header = () => {
   const { userCredentials } = useSelector((state) => state.auth);
-  const [logoutAPICall, { isLoading, error }] = useLogoutMutation();
+  const [logoutAPICall] = useLogoutMutation();
 
   const dispatch = useDispatch();
 
@@ -17,6 +17,7 @@ const Header = () => {
       toast.success('Successfully logged out!');
     } catch (err) {
       console.error(err.message);
+      toast.error('Could not logout!');
     }
   };
 

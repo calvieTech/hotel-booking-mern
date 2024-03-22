@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 // import { useMutation } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ export type RegisterFormData = {
 };
 
 function RegisterPage() {
-  const [register, { isLoading, error }] = useRegisterMutation();
+  const [register] = useRegisterMutation();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -29,7 +29,7 @@ function RegisterPage() {
 
   const { userCredentials } = useSelector((state) => state?.auth);
 
-  const onRegister = async (e: Event) => {
+  const registerHandler = async (e: FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.error('Passwords do not match!');
@@ -60,7 +60,7 @@ function RegisterPage() {
   }, [navigate, userCredentials]);
 
   return (
-    <form className='flex flex-col gap-5' onSubmit={onRegister}>
+    <form className='flex flex-col gap-5' onSubmit={registerHandler}>
       <h2 className='text-3xl font-bold'>Create an account</h2>
       <div className='flex flex-col md:flex-row gap-5'>
         <label
