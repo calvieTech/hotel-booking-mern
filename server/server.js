@@ -14,7 +14,7 @@ dotenv.config();
 require('express-async-errors');
 
 const port = process.env.PORT || 5001;
-const whitelist = ['http://localhost:5173', 'https://mern-auth.cthang.dev'];
+const whitelist = ['http://localhost:3001', 'https://hotel-booking.cthang.dev'];
 
 connectDB();
 
@@ -31,7 +31,7 @@ app.use('/api/users', userRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   const dirname = path.resolve();
-  app.use(express.static(path.join(dirname, '..', 'client/dist')));
+  app.use(express.static(path.join(dirname, '..', 'client', 'dist')));
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(dirname, '..', 'client', 'dist', 'index.html'));
   });
